@@ -5,7 +5,7 @@
         <router-link v-if="userPresent" :to="'/'" class="link">Repositories</router-link>
         <span v-else>Repositories</span>
 
-        <router-link v-if="$route.params.build" :to="'/'+slug" class="link repo-name-breadcrumb" :title="slug">{{ slug }}</router-link>
+        <router-link v-if="$route.params.build" :to="'/'+eslug" class="link repo-name-breadcrumb" :title="slug">{{ slug }}</router-link>
         <span :title="slug" v-else>{{ slug }}</span>
 
         <span v-if="$route.params.build">#{{ $route.params.build }}</span>
@@ -29,15 +29,15 @@
          page.
     -->
     <nav v-if="$route.params.build">
-      <router-link :to="'/'+slug" class="manually-active">
+      <router-link :to="'/'+eslug" class="manually-active">
         <IconArrow direction="left"/>
         <span>Activity Feed</span>
       </router-link>
     </nav>
 
     <nav v-else-if="showTabs">
-      <router-link :to="'/'+slug" :disabled="!repo.active">Activity Feed</router-link>
-      <router-link :to="'/'+slug + '/settings'" v-if="showSettings">Settings</router-link>
+      <router-link :to="'/'+eslug" :disabled="!repo.active">Activity Feed</router-link>
+      <router-link :to="'/'+eslug + '/settings'" v-if="showSettings">Settings</router-link>
     </nav>
 
     <Alert v-if="repoEnablingErr && repoEnablingErr.status === 402">
@@ -97,6 +97,9 @@ export default {
   computed: {
     slug() {
       return this.$route.params.namespace + "/" + this.$route.params.name;
+    },
+    eslug() {
+      return encodeURIComponent(this.$route.params.namespace) + "/" + encodeURIComponent(this.$route.params.name);
     },
     repo() {
       return this.$store.state.repos[this.slug];

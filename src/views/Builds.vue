@@ -12,7 +12,7 @@
         class="build"
         v-for="build in builds"
         :key="build.id"
-        :to="'/'+slug + '/' + build.number">
+        :to="'/'+eslug + '/' + build.number">
         <RepoItem :number="build.number"
                   :title="build.title || build.message"
                   :status="build.status"
@@ -49,6 +49,9 @@ export default {
   computed: {
     slug() {
       return this.$route.params.namespace + "/" + this.$route.params.name;
+    },
+    eslug() {
+      return encodeURIComponent(this.$route.params.namespace) + "/" + encodeURIComponent(this.$route.params.name);
     },
     repo() {
       return this.$store.state.repos[this.slug];

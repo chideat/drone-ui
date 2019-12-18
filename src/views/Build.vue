@@ -51,7 +51,7 @@
             and rendered as a link. Clicking the link will
             change the route and expand the section.
           -->
-          <router-link v-if="_stage !== stage" :to="'/'+slug+'/'+build.number+'/'+_stage.number+'/1'">
+          <router-link v-if="_stage !== stage" :to="'/'+eslug+'/'+build.number+'/'+_stage.number+'/1'">
             <Stage :stage="_stage"/>
           </router-link>
 
@@ -69,7 +69,7 @@
                     :started="_step.started"
                     :stopped="_step.stopped"/>
 
-              <router-link v-else :to="'/'+slug+'/'+build.number+'/'+_stage.number+'/'+_step.number">
+              <router-link v-else :to="'/'+eslug+'/'+build.number+'/'+_stage.number+'/'+_step.number">
                 <Step
                   :name="_step.name"
                   :status="_step.status"
@@ -243,6 +243,9 @@ export default {
   computed: {
     slug() {
       return this.$route.params.namespace + "/" + this.$route.params.name;
+    },
+    eslug() {
+      return encodeURIComponent(this.$route.params.namespace) + "/" + encodeURIComponent(this.$route.params.name);
     },
     repo() {
       return this.$store.state.repos[this.slug];

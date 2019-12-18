@@ -9,7 +9,7 @@ export const fetchSecrets = (store, params) => {
   const { namespace, name } = params;
 
   return dispatchTypicalFetch(store, params, "SECRET_LIST", () => {
-    return fetch(`${instance}/api/repos/${namespace}/${name}/secrets`, { headers, credentials: "same-origin" });
+    return fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/secrets`, { headers, credentials: "same-origin" });
   });
 };
 
@@ -24,7 +24,7 @@ export const SECRET_FIND_FAILURE = "SECRET_FIND_FAILURE";
 export const fetchSecret = async ({ commit }, { namespace, name, secret }) => {
   commit(SECRET_FIND_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/secrets/${secret}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/secrets/${secret}`, {
     headers,
     credentials: "same-origin"
   });
@@ -48,7 +48,7 @@ export const SECRET_DELETE_FAILURE = "SECRET_DELETE_FAILURE";
 export const deleteSecret = async ({ commit }, { namespace, name, secret }) => {
   commit(SECRET_DELETE_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/secrets/${secret.name}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/secrets/${secret.name}`, {
     headers,
     method: "DELETE",
     credentials: "same-origin"
@@ -75,7 +75,7 @@ export const createSecret = async ({ commit }, { namespace, name, secret }) => {
   commit(SECRET_CREATE_LOADING);
 
   const body = JSON.stringify(secret);
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/secrets`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/secrets`, {
     headers,
     method: "POST",
     body,
@@ -106,7 +106,7 @@ export const updateSecret = async (dispatch, state, input) => {
 
   const { namespace, name } = state.route.params;
   const body = JSON.stringify(input);
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/secrets/${input.name}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/secrets/${input.name}`, {
     headers,
     method: "PATCH",
     body,

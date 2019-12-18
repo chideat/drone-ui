@@ -32,7 +32,7 @@ export const NODE_FIND_FAILURE = "NODE_FIND_FAILURE";
 export const fetchNode = async ({ commit }, { name }) => {
   commit(NODE_FIND_LOADING);
 
-  const req = await fetch(`${instance}/api/nodes/${name}`, { headers, credentials: "same-origin" });
+  const req = await fetch(`${instance}/api/nodes/${encodeURIComponent(name)}`, { headers, credentials: "same-origin" });
   const res = await req.json();
 
   if (req.status > 299) {

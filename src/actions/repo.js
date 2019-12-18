@@ -9,7 +9,7 @@ export const fetchRepo = async (store, params) => {
   const { namespace, name } = params;
 
   return dispatchTypicalFetch(store, params, "REPO_FIND", () => {
-    return fetch(`${instance}/api/repos/${namespace}/${name}`, { headers, credentials: "same-origin" });
+    return fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}`, { headers, credentials: "same-origin" });
   });
 };
 
@@ -56,7 +56,7 @@ export const REPO_ENABLE_FAILURE = "REPO_ENABLE_FAILURE";
 export const enableRepo = async ({ commit }, { namespace, name }) => {
   commit(REPO_ENABLE_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}`, {
     headers,
     method: "POST",
     credentials: "same-origin"
@@ -82,7 +82,7 @@ export const REPO_DISABLE_FAILURE = "REPO_DISABLE_FAILURE";
 export const disableRepo = async ({ commit }, { namespace, name }) => {
   commit(REPO_DISABLE_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}`, {
     headers,
     method: "DELETE",
     credentials: "same-origin"
@@ -107,7 +107,7 @@ export const REPO_CHOWN_FAILURE = "REPO_CHOWN_FAILURE";
 export const chownRepo = async ({ commit }, { namespace, name }) => {
   commit(REPO_CHOWN_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/chown`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/chown`, {
     headers,
     method: "POST",
     credentials: "same-origin"
@@ -133,7 +133,7 @@ export const REPO_REPAIR_FAILURE = "REPO_REPAIR_FAILURE";
 export const repairRepo = async ({ commit }, { namespace, name }) => {
   commit(REPO_REPAIR_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/repair`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/repair`, {
     headers,
     method: "POST",
     credentials: "same-origin"
@@ -159,7 +159,7 @@ export const updateRepo = async ({ commit }, { namespace, name, repo }) => {
   commit(REPO_UPDATE_LOADING);
 
   const body = JSON.stringify(repo);
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}`, {
     headers,
     method: "PATCH",
     body,

@@ -19,7 +19,7 @@ export default {
     to() {
       const { repo } = this;
       const tab = repo.active ? "" : "settings";
-      return `/${repo.namespace}/${repo.name}/${tab}`;
+      return `/${encodeURIComponent(repo.namespace)}/${encodeURIComponent(repo.name)}/${tab}`;
     }
   }
 };

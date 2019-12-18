@@ -11,7 +11,7 @@ export const CRON_LIST_FAILURE = "CRON_LIST_FAILURE";
 export const fetchCrons = async ({ commit }, { namespace, name }) => {
   commit(CRON_LIST_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/cron`, { headers, credentials: "same-origin" });
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/cron`, { headers, credentials: "same-origin" });
   const res = await req.json();
 
   if (req.status > 299) {
@@ -33,7 +33,7 @@ export const fetchCron = async ({ commit }, state) => {
   commit(CRON_FIND_LOADING);
 
   const { namespace, name, cron } = state.route.params;
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/cron/${cron}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/cron/${cron}`, {
     headers,
     credentials: "same-origin"
   });
@@ -57,7 +57,7 @@ export const CRON_DELETE_FAILURE = "CRON_DELETE_FAILURE";
 export const deleteCron = async ({ commit }, { namespace, name, cron }) => {
   commit(CRON_DELETE_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/cron/${cron.name}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/cron/${cron.name}`, {
     headers,
     method: "DELETE",
     credentials: "same-origin"
@@ -84,7 +84,7 @@ export const createCron = async ({ commit }, { namespace, name, cron }) => {
   commit(CRON_CREATE_LOADING);
 
   const body = JSON.stringify(cron);
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/cron`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/cron`, {
     headers,
     method: "POST",
     body,
@@ -115,7 +115,7 @@ export const updateCron = async (dispatch, state, input) => {
 
   const { namespace, name } = state.route.params;
   const body = JSON.stringify(input);
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/cron/${input.name}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/cron/${input.name}`, {
     headers,
     method: "PATCH",
     body,

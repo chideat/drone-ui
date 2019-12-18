@@ -137,6 +137,9 @@ export default {
     slug() {
       return this.$route.params.namespace + "/" + this.$route.params.name;
     },
+    eslug() {
+      return encodeURIComponent(this.$route.params.namespace) + "/" + encodeURIComponent(this.$route.params.name);
+    },
     repo() {
       let repo = this.$store.state.repos[this.slug];
       return repo && { ...repo };

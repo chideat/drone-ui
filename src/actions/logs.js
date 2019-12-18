@@ -17,7 +17,7 @@ export const fetchLogs = async ({ commit }, params) => {
   commit(LOGS_FIND_LOADING);
 
   const { namespace, name, build, stage, step } = params;
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}/logs/${stage}/${step}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/builds/${build}/logs/${stage}/${step}`, {
     headers,
     credentials: "same-origin"
   });
@@ -39,7 +39,7 @@ export function streamLogs({ commit }, params) {
   }
 
   const { namespace, name, build, stage, step } = params;
-  let path = `${instance}/api/stream/${namespace}/${name}/${build}/${stage}/${step}`;
+  let path = `${instance}/api/stream/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/${build}/${stage}/${step}`;
   path = !token ? path : `${path}?access_token=${token}`;
 
   commit(LOG_CLEAR);

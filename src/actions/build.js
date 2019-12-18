@@ -11,7 +11,7 @@ export const fetchBuilds = (store, params) => {
   const { namespace, name, page = 1 } = params;
 
   return dispatchTypicalFetch(store, params, "BUILD_LIST", () => {
-    return fetch(`${instance}/api/repos/${namespace}/${name}/builds?page=${page}`, {
+    return fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/builds?page=${page}`, {
       headers,
       credentials: "same-origin"
     });
@@ -26,7 +26,7 @@ export const fetchBuild = async (store, params) => {
   const { namespace, name, build } = params;
 
   return dispatchTypicalFetch(store, params, "BUILD_FIND", () => {
-    return fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}`, { headers, credentials: "same-origin" });
+    return fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/builds/${build}`, { headers, credentials: "same-origin" });
   });
 };
 
@@ -41,7 +41,7 @@ export const BUILD_CANCEL_FAILURE = "BUILD_CANCEL_FAILURE";
 export const cancelBuild = async ({ commit }, { namespace, name, build }) => {
   commit(BUILD_CANCEL_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/builds/${build}`, {
     headers,
     method: "DELETE",
     credentials: "same-origin"
@@ -66,7 +66,7 @@ export const BUILD_RETRY_FAILURE = "BUILD_RETRY_FAILURE";
 export const createBuild = async ({ commit }, { namespace, name, build }) => {
   commit(BUILD_RETRY_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/builds/${build}`, {
     headers,
     method: "POST",
     credentials: "same-origin"
@@ -86,7 +86,7 @@ export const approveBuild = async (store, params) => {
   const { namespace, name, build, stage } = params;
 
   return dispatchTypicalFetch(store, params, "BUILD_APPROVE", () => {
-    return fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}/approve/${stage}`, {
+    return fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/builds/${build}/approve/${stage}`, {
       headers,
       method: "POST",
       credentials: "same-origin"
@@ -98,7 +98,7 @@ export const declineBuild = async (store, params) => {
   const { namespace, name, build, stage } = params;
 
   return dispatchTypicalFetch(store, params, "BUILD_DECLINE", () => {
-    return fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}/decline/${stage}`, {
+    return fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/builds/${build}/decline/${stage}`, {
       headers,
       method: "POST",
       credentials: "same-origin"

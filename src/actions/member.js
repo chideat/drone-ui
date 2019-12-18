@@ -14,7 +14,7 @@ export const fetchMembers = async (dispatch, state) => {
   });
 
   const { namespace, name } = state.route.params;
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/collaborators`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/collaborators`, {
     headers,
     credentials: "same-origin"
   });
@@ -48,7 +48,7 @@ export const deleteMember = async (dispatch, state, username) => {
   });
 
   const { namespace, name } = state.route.params;
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/collaborators/${username}`, {
+  const req = await fetch(`${instance}/api/repos/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/collaborators/${username}`, {
     headers,
     method: "DELETE",
     credentials: "same-origin"
