@@ -40,7 +40,7 @@ export default {
       return this.$store.state.instance.url;
     },
     name() {
-      return this.$route.params.namespace + "/" + this.$route.params.name;
+      return encodeURIComponent(this.$route.params.namespace) + "/" + encodeURIComponent(this.$route.params.name);
     },
     image() {
       const branchSuffix = this.branch ? `?ref=refs/heads/${this.branch}` : "";

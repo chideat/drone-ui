@@ -62,7 +62,7 @@ export default {
         this.stopPropagationAndPreventDefault(e);
       } else if (e.key === "Enter") {
         const repo = this.repos[this.selectionIndex];
-        this.$router.push(`/${repo.namespace}/${repo.name}`);
+        this.$router.push(`/${encodeURIComponent(repo.namespace)}/${encodeURIComponent(repo.name)}`);
         this.triggerItemSelect(e);
         this.stopPropagationAndPreventDefault(e);
       }

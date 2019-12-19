@@ -263,7 +263,7 @@ export default {
     },
     link() {
       return this.build && this.repo &&
-        `/link/${this.repo.slug}/tree/${this.build.ref}?sha=${this.build.after}`
+        `/link/${this.eslug}/tree/${this.build.ref}?sha=${this.build.after}`
     },
     buildShowState() {
       if (this.buildCollection.lStatus === "error") return "loadingError";
@@ -341,7 +341,7 @@ export default {
       const { namespace, name, build } = this.$route.params;
 
       this.$store.dispatch("createBuild", { namespace, name, build }).then(data => {
-        this.$router.push(`/${namespace}/${name}/${data.build.number}`);
+        this.$router.push(`/${encodeURIComponent(namespace)}/${encodeURIComponent(name)}/${data.build.number}`);
       });
     },
     handleMore: function() {
